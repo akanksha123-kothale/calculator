@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-300 h-screen w-screen flex flex-col justify-center items-center">
+    <div class="rounded-lg bg-slate-900 flex flex-col items-center justify-center p-4">
+        <input id="display" class="bg-slate-900 text-slate-100 text-right text-3xl pt-4 mt-2 mb-4 pr-2 w-64" type="text" disabled>
+        <div class="grid grid-rows-4 grid-cols-4 gap-2 pt-4">
+            <div onclick="clearDisplay()" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">AC</div>
+            <div onclick="backspace()" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">Del</div>
+            <div onclick="appendToDisplay('%')" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">%</div>
+            <div onclick="appendToDisplay('/')" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">/</div>
+
+            <div onclick="appendToDisplay('7')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">7</div>
+            <div onclick="appendToDisplay('8')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">8</div>
+            <div onclick="appendToDisplay('9')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">9</div>
+            <div onclick="appendToDisplay('*')" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">*</div>
+
+            <div onclick="appendToDisplay('4')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">4</div>
+            <div onclick="appendToDisplay('5')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">5</div>
+            <div onclick="appendToDisplay('6')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">6</div>
+            <div onclick="appendToDisplay('-')" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">-</div>
+
+            <div onclick="appendToDisplay('1')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">1</div>
+            <div onclick="appendToDisplay('2')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">2</div>
+            <div onclick="appendToDisplay('3')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">3</div>
+            <div onclick="appendToDisplay('+')" class="flex justify-center items-center bg-gray-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-300 transition">+</div>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-4 gap-2 mt-2 mb-2 pl-4 pr-4">
+            <div onclick="appendToDisplay('00')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">00</div>
+            <div onclick="appendToDisplay('0')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">0</div>
+            <div onclick="appendToDisplay('.')" class="flex justify-center items-center bg-gray-600 text-slate-100 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-gray-500 transition">.</div>
+            <div onclick="calculateResult()" class="flex justify-center items-center bg-orange-400 text-slate-900 font-bold rounded-full h-12 w-12 text-xl cursor-pointer hover:bg-orange-300 transition">=</div>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendToDisplay(input) {
+            display.value += input;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function backspace() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                // Replace % with /100 for proper calculation
+                let expression = display.value.replace(/%/g, '/100');
+                display.value = eval(expression);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+
+</html>
